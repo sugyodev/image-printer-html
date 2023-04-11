@@ -3,157 +3,14 @@
 
 <head>
     <title>Alrajhi-capital</title>
-    <script src="dom-to-image.min.js"></script>
+    <link rel="stylesheet" href="css/index.css" />
+    <script src="js/dom-to-image.min.js"></script>
 
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
     </head>
 </head>
-<style>
-    body {
-        unicode-bidi : bidi-override !important;
-        margin: 0;
-        width: 100%;
-        height: 100vh;
-        overflow: hidden;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-            'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-            sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
-    html {
-        overflow-y: hidden;
-        overflow-x: hidden;
-    }
-
-
-    .header {
-        height: 90px;
-        width: 100%;
-        background-color: #221aff;
-    }
-
-    #content {
-        text-align: center;
-        padding: 15px;
-        max-width: 400px;
-        margin: auto;
-        background-color: #fff;
-        box-shadow: 0 12px 12px -12px black;
-        margin-top: -65px;
-        border-radius: 8px;
-    }
-
-    #logo1,
-    #logo2 {
-        max-width: 190px;
-        margin: auto;
-        margin-bottom: 20px;
-    }
-
-    #logo2 {
-        display: none;
-    }
-
-    @media only screen and (max-width: 800px) {
-        #logo1 {
-            display: none;
-        }
-
-        #logo2 {
-            display: block;
-        }
-
-        #content {
-            max-width: 290px;
-        }
-    }
-
-
-    .form-group {
-        width: 100%;
-    }
-
-    .form-group input {
-        height: 32px;
-        text-indent: 10px;
-        margin-bottom: 10px;
-        border: 0.5px solid rgba(0, 0, 0, 0.1);
-        width: 97%;
-        padding: 4px;
-    }
-
-    .form-group p {
-        width: 100%;
-        text-align: right;
-        margin: 0px;
-        margin-bottom: 10px;
-    }
-
-    #file {
-        width: 100%;
-    }
-
-    input:focus {
-        outline: none;
-    }
-
-    #print {
-        width: 100%;
-        background-color: #221aff;
-        color: #fff;
-        font-size: 12pt;
-        cursor: pointer;
-        font-weight: bold;
-        margin-top: 30px;
-        line-height: 30px;
-        min-height: 30px;
-        border: none;
-        text-decoration: none;
-        display: block;
-    }
-
-    #result {
-        display: flex;
-        background: white;
-        padding-bottom: 80px;
-        width: fit-content;
-        height: fit-content;
-        position: relative;
-    }
-
-    #result-link {
-        color: #221aff;
-        font-size: 18px;
-        font-weight: 500;
-        position: absolute;
-        left: 40px;
-        bottom: 30px;
-    }
-
-    .result-text {
-        position: absolute;
-        right: 100px;
-        bottom: 3px;
-    }
-
-    .result-text #result-text1 {
-        font-size: 24px;
-        color: #221aff;
-        font-weight: 600;
-        margin-bottom: 4px !important;
-        margin-top: 0px !important;
-    }
-
-    .result-text #result-text2 {
-        font-size: 24px;
-        color: #221aff;
-        font-weight: 400;
-        margin-top: 5px !important;
-        margin-bottom: 4px !important;
-    }
 
 </style>
 
@@ -163,86 +20,61 @@
         <div id="content">
             <img src="imgs/logo-horizon.png" id="logo1">
             <img src="imgs/logo-vertical.png" id="logo2">
-            <div class="form-group">
-                <p for="str1">الاسم</p>
-                <input type="text" name="str1" id="str1" style="direction:rtl">
-            </div>
-            <div class="form-group">
-                <p for="str2">Name</p>
-                <input type="text" name="str2" id="str2" style="direction:rtl">
-            </div>
-
+            <p class="upload-text">Please upload an image</p>
             <input type="file" name="file" id="file">
-            <a id="print" href="#">طباعة Save</a>
+            <div id="upload-status"><span id="generated-link"></span><img src="imgs/copy-icon.png" width="20"
+                    onclick="copyClipboard()" /></div>
+            <button onclick="generate()" class="create-btn">
+                <p>Create a link</p><span class="loader"></span>
+            </button>
         </div>
     </div>
+    <script>
+        const input = document.getElementById('file');
+        input.onchange = function (e) {
+            document.getElementById('upload-status').style.display = "none"
+        }
+        function generate() {
+            const input = document.getElementById('file');
+            var loader = document.getElementsByClassName('loader')[0];
+            const file = input.files[0];
+            if (!file) {
+                alert('Please choose a file.');
+                return;
+            }
+            const apiKey = '94db8bb599d6e0580b8f1eff0969c632'; // Replace with your ImgBB API key
 
-    <div id="result">
-        <img src="" id="result-bg">
-        <div id="result-link">alrahi-capital.com</div>
-        <div class="result-text">
-            <p id="result-text1"></p>
-            <p id="result-text2"></p>
-        </div>
-    </div>
-</body>
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('key', apiKey);
 
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        var printCanvas, resultTextValue1, resultTextValue2, uploadedBg;
-        var fileInput = document.getElementById('file');
-        var str1Input = document.getElementById('str1');
-        var str2Input = document.getElementById('str2');
-
-        var resultEle = document.getElementById('result');
-        var printBtn = document.getElementById('print');
-        var resultBg = document.getElementById('result-bg');
-        var resultText1 = document.getElementById('result-text1');
-        var resultText2 = document.getElementById('result-text2');
-
-        str1Input.onchange = function (e) {
-            resultTextValue1 = e.target.value;
+            const xhr = new XMLHttpRequest();
+            loader.style.display = 'inline-block';
+            xhr.open('POST', 'https://api.imgbb.com/1/upload');
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    loader.style.display = 'none';
+                    const url = JSON.parse(xhr.responseText).data.url;
+                    document.getElementById('generated-link').textContent = `${window.location.host}?url=${btoa(url)}`;
+                    document.getElementById('upload-status').style.display = "block"
+                } else {
+                    loader.style.display = 'none';
+                    alert('Error uploading image. Please try again later.');
+                }
+            };
+            xhr.send(formData);
         }
 
-        str2Input.onchange = function (e) {
-            resultTextValue2 = e.target.value;
-        }
-
-        fileInput.onchange = function (e) {
-            uploadedBg = e.target.files || e.dataTransfer.files;
-            resultBg.src = URL.createObjectURL(uploadedBg[0]);
-        }
-        printBtn.onclick = function () {
-            if (!resultTextValue1 || !resultTextValue2 || !uploadedBg) { alert('You must fill out all fields.'); return; }
-            else {
-                resultText1.innerText = resultTextValue1;
-                resultText2.innerText = resultTextValue2;
-                // document.getElementById('result').style.display = "block"
-
-                domtoimage.toPng(resultEle)
-                    .then(function (dataUrl) {
-                        // document.getElementById('result').style.display = "none"
-                        str1Input.value = "";
-                        str2Input.value = "";
-                        resultTextValue1 = "";
-                        resultTextValue2 = "";
-
-                        // uploadedBg = null;
-                        // fileInput.value = null;
-
-                        var a = document.createElement("a"); //Create <a>
-                        a.href = dataUrl;//Image Base64 Goes here
-                        a.download = "card.png"; //File name Here
-                        a.click();
-                    })
-                    .catch(function (error) {
-                        console.error('oops, something went wrong!', error);
-                    });
+        function copyClipboard() {
+            const text = document.getElementById('generated-link');
+            if (!navigator.clipboard) {
+                alert('error');
+            } else {
+                navigator.clipboard.writeText(text.textContent);
             }
         }
 
-    }, { once: true });
-
-</script>
+    </script>
+</body>
 
 </html>
