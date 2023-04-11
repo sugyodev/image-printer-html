@@ -55,7 +55,7 @@
                 if (xhr.status === 200) {
                     loader.style.display = 'none';
                     const url = JSON.parse(xhr.responseText).data.url;
-                    document.getElementById('generated-link').textContent = `${window.location.host}?url=${btoa(url)}`;
+                    document.getElementById('generated-link').textContent = `${window.location.host}/employee.html?url=${btoa(url)}`;
                     document.getElementById('upload-status').style.display = "block"
                 } else {
                     loader.style.display = 'none';
