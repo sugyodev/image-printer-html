@@ -27,7 +27,9 @@
                 <input type="text" name="str2" id="str2" style="direction:rtl">
             </div>
 
-            <a id="print" href="#"><p>طباعة Save</p><span class="loader"></span></a>
+            <a id="print" href="#">
+                <p>طباعة Save</p><span class="loader"></span>
+            </a>
         </div>
     </div>
 
@@ -67,34 +69,36 @@
             resultTextValue2 = e.target.value;
         }
 
-        printBtn.onclick = function () {
-            if (!imgSrc) { alert('You should use generated url.'); return; }
-            else {
-                if (!resultTextValue1 || !resultTextValue2) { alert('You must fill out all fields.'); return; }
+        resultBg.onload = function () {
+            console.log('loaded successfully');
+            printBtn.onclick = function () {
+                if (!imgSrc) { alert('You should use generated url.'); return; }
                 else {
-                    resultText1.innerText = resultTextValue1;
-                    resultText2.innerText = resultTextValue2;
-                    loader.style.display = 'inline-block';
-                    domtoimage.toPng(resultEle)
-                        .then(function (dataUrl) {
-                            str1Input.value = "";
-                            str2Input.value = "";
-                            resultTextValue1 = "";
-                            resultTextValue2 = "";
+                    if (!resultTextValue1 || !resultTextValue2) { alert('You must fill out all fields.'); return; }
+                    else {
+                        resultText1.innerText = resultTextValue1;
+                        resultText2.innerText = resultTextValue2;
+                        loader.style.display = 'inline-block';
+                        domtoimage.toPng(resultEle)
+                            .then(function (dataUrl) {
+                                str1Input.value = "";
+                                str2Input.value = "";
+                                resultTextValue1 = "";
+                                resultTextValue2 = "";
 
-                            var a = document.createElement("a"); //Create <a>
-                            a.href = dataUrl;//Image Base64 Goes here
-                            a.download = "card.png"; //File name Here
-                            loader.style.display = 'none';
-                            a.click();
-                        })
-                        .catch(function (error) {
-                            console.error('oops, something went wrong!', error);
-                            loader.style.display = 'none';
-                        });
+                                var a = document.createElement("a"); //Create <a>
+                                a.href = dataUrl;//Image Base64 Goes here
+                                a.download = "card.png"; //File name Here
+                                loader.style.display = 'none';
+                                a.click();
+                            })
+                            .catch(function (error) {
+                                console.error('oops, something went wrong!', error);
+                                loader.style.display = 'none';
+                            });
+                    }
                 }
             }
-
         }
 
     }, { once: true });
