@@ -129,13 +129,14 @@ input:focus {
 
 .result-text {
     position: absolute;
-    right: 60px;
-    bottom: 30px;
+    right: 40px;
+    color: white;
+    bottom: 20px;
 }
 
 .result-text #result-text1 {
     font-size: 24px;
-    color: #221aff;
+    /* color: #221aff; */
     font-weight: 600;
     margin-bottom: 4px !important;
     margin-top: 0px !important;
@@ -143,7 +144,7 @@ input:focus {
 
 .result-text #result-text2 {
     font-size: 24px;
-    color: #221aff;
+    /* color: #221aff; */
     font-weight: 400;
     margin-top: 5px !important;
     margin-bottom: 4px !important;
