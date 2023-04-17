@@ -111,8 +111,8 @@ input:focus {
 
 #result {
     display: flex;
-    background: white;
-    padding-bottom: 80px;
+    /* background: white; */
+    /* padding-bottom: 80px; */
     width: fit-content;
     height: fit-content;
     position: relative;
@@ -129,8 +129,8 @@ input:focus {
 
 .result-text {
     position: absolute;
-    right: 100px;
-    bottom: 3px;
+    right: 60px;
+    bottom: 30px;
 }
 
 .result-text #result-text1 {
