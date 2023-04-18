@@ -1,5 +1,5 @@
 body {
-    unicode-bidi : bidi-override !important;
+    unicode-bidi: bidi-override !important;
     margin: 0;
     width: 100%;
     height: 100vh;
@@ -10,6 +10,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
 html {
     overflow-y: hidden;
     overflow-x: hidden;
@@ -87,7 +88,8 @@ input:focus {
     outline: none;
 }
 
-#print, .create-btn {
+#print,
+.create-btn {
     width: 100%;
     background-color: #221aff;
     color: #fff;
@@ -104,7 +106,8 @@ input:focus {
     justify-content: center;
 }
 
-#print p, .create-btn p {
+#print p,
+.create-btn p {
     margin: 0px;
     padding-top: 10px;
 }
@@ -132,25 +135,22 @@ input:focus {
     right: 40px;
     color: white;
     bottom: 20px;
+    font-size: 24px;
 }
 
 .result-text #result-text1 {
-    font-size: 24px;
-    /* color: #221aff; */
     font-weight: 600;
     margin-bottom: 4px !important;
     margin-top: 0px !important;
 }
 
 .result-text #result-text2 {
-    font-size: 24px;
-    /* color: #221aff; */
     font-weight: 400;
     margin-top: 5px !important;
     margin-bottom: 4px !important;
 }
 
-.upload-text{
+.upload-text {
     width: 100%;
     font-size: 20px;
     font-weight: 600;
@@ -164,13 +164,16 @@ input:focus {
     text-align: left;
     color: #888;
 }
+
 #upload-status span {
     overflow-wrap: break-word;
 }
+
 #upload-status img {
     margin-left: 5px;
     cursor: pointer;
 }
+
 .loader {
     scale: 0.5;
     width: 48px;
@@ -179,24 +182,58 @@ input:focus {
     position: relative;
     border-width: 3px 2px 3px 2px;
     border-style: solid dotted solid dotted;
-    border-color: #de3500 rgba(255, 255, 255,0.3) #fff rgba(151, 107, 93, 0.3);
+    border-color: #de3500 rgba(255, 255, 255, 0.3) #fff rgba(151, 107, 93, 0.3);
     border-radius: 50%;
     box-sizing: border-box;
     animation: 1s rotate linear infinite;
- }
- .loader:before , .loader:after{
+}
+
+.loader:before,
+.loader:after {
     content: '';
     top: 0;
     left: 0;
     position: absolute;
     border: 10px solid transparent;
-    border-bottom-color:#fff;
+    border-bottom-color: #fff;
     transform: translate(-10px, 19px) rotate(-35deg);
-  }
- .loader:after {
-    border-color: #de3500 #0000 #0000 #0000 ;
+}
+
+.loader:after {
+    border-color: #de3500 #0000 #0000 #0000;
     transform: translate(32px, 3px) rotate(-35deg);
-  }
-   @keyframes rotate {
-    100%{    transform: rotate(360deg)}
-  }
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+
+#color-picker {
+    height: 50px;
+    min-width: 80%;
+    border: none;
+    background: transparent;
+}
+
+#color-picker::-webkit-color-swatch {
+    /* border: none; */
+    border-color: #aaa;
+    border-radius: 5px;
+}
+
+#picker-label{
+    font-weight: 600;;
+    width: 100%;text-align:left; padding-left:8px
+}
+
+#font-size {
+    outline: none;
+    height: 40px;
+    margin-top: 5px;
+    border-color: #aaa;
+    border-radius: 5px;
+    min-width: 20%;
+}

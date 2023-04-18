@@ -26,7 +26,29 @@
                 <p for="str2">Name</p>
                 <input type="text" name="str2" id="str2" style="direction:rtl">
             </div>
-
+            <div>
+                <p id="picker-label">Select font</p>
+                <div style="display:flex;">
+                    <input type="color" value="#ffffff" id="color-picker">
+                    <select name="font-size" id="font-size">
+                        <option value="8">8</option>
+                        <option value="10">10</option>
+                        <option value="12">12</option>
+                        <option value="14">14</option>
+                        <option value="16">16</option>
+                        <option value="18">18</option>
+                        <option value="20">20</option>
+                        <option value="24">24</option>
+                        <option value="28">28</option>
+                        <option value="32">32</option>
+                        <option value="36">36</option>
+                        <option value="40">40</option>
+                        <option value="44">44</option>
+                        <option value="48">48</option>
+                        <option value="52">52</option>
+                    </select>
+                </div>
+            </div>
             <a id="print" href="#">
                 <p>طباعة Save</p><span class="loader"></span>
             </a>
@@ -51,6 +73,20 @@
         var urlParams = new URLSearchParams(window.location.search);
         var imgSrc = urlParams.get('url');
         resultBg.src = atob(imgSrc);
+
+        var picker = document.getElementById('color-picker');
+        var sizePicker = document.getElementById('font-size');
+
+        // var pickerLabel = document.getElementById('picker-label');
+        var resultText = document.getElementsByClassName('result-text')[0];
+
+        sizePicker.onchange = function(e){
+            resultText.style.fontSize = e.target.value + 'px';
+        }
+
+        picker.onchange = function (e) {
+            resultText.style.color = e.target.value;
+        }
 
         var printCanvas, resultTextValue1, resultTextValue2, uploadedBg;
         var str1Input = document.getElementById('str1');
