@@ -17317,8 +17317,8 @@
         : undefined; // CONCATENATED MODULE: ./src/index.js
 
     // const el = document.getElementById("app");
-    var root = client.createRoot(document.getElementById("tweet-app"));
-    function drawReactTweet(tweetID) {
+    function drawReactTweet(tweetID, drawDomId) {
+      var root = client.createRoot(document.getElementById(drawDomId));
       root.render(/*#__PURE__*/ tweetWidget(tweetID), null);
       var setTime = setInterval(()=>{
         let tweetMain = document.getElementById("tweetMain").childNodes;
