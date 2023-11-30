@@ -17322,7 +17322,7 @@
       root.render(/*#__PURE__*/ tweetWidget(tweetID), null);
       var setTime = setInterval(()=>{
         let tweetMain = document.getElementById("tweetMain").childNodes;
-        console.log(tweetMain);
+        // console.log(tweetMain);
         if (tweetMain) {
           clearInterval(setTime);
           return tweetMain.childNodes;
